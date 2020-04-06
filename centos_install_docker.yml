@@ -1,0 +1,39 @@
+---
+- hosts: all
+  remote_user: "{{user|default('root')}}"
+  tasks:
+    - name: Install tools
+      package:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+    - name: Add repo
+      command: yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    - name: Install docker-ce
+      package:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+    - file:
+        name: /etc/docker/
+        state: directory
+    - name: Config the docker
+      copy:
+        content: '{ "registry-mirrors": ["https://dockerhub.azk8s.cn"] }'
+        dest: /etc/docker/daemon.json
+    - name: Start docker
+      systemd:
+        state: started
+        enabled: true
+        name: docker
+    - name: Install docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: "+x"

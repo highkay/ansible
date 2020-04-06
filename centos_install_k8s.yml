@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: "{{user|default('root')}}"
+  tasks:
+    - name: Run rancher
+      command: docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
