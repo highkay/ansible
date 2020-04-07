@@ -21,10 +21,10 @@
     - name: Install ohmyzsh
       command: sh install.sh --unattended
     - name: Change theme
-      command: sed -i 's/ZSH_THEME\=\"robbyrussell\"/ZSH_THEME\=\"agnoster\"/g' ~/.zshrc
+      command: sed -i 's/ZSH_THEME\=\"robbyrussell\"/ZSH_THEME\=\"ys\"/g' ~/.zshrc
     - name: Install zsh-autosuggestions
       command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     - name: Install zsh-syntax-highlighting
       command: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     - name: Enable all plugins
-      command: sed -i 's/plugins\=(git)/plugins\=(git z extract history colored\-man\-pages safe\-paste command\-not\-found vi\-mode docker docker\-compose zsh\-autosuggestions zsh\-syntax\-highlighting)/g' ~/.zshrc && source ~/.zshrc
+      command: sed -i 's/plugins\=(git)/plugins\=(git z extract history colored\-man\-pages safe\-paste command\-not\-found vi\-mode docker docker\-compose zsh\-autosuggestions zsh\-syntax\-highlighting)/g' ~/.zshrc
