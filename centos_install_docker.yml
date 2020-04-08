@@ -25,7 +25,7 @@
         state: directory
     - name: Config the docker
       copy:
-        content: '{ "registry-mirrors": ["https://dockerhub.azk8s.cn"] }'
+        content: '{ "registry-mirrors": ["https://d04o0g2c.mirror.aliyuncs.com", "https://hub-mirror.c.163.com"] }'
         dest: /etc/docker/daemon.json
     - name: Start docker
       systemd:
