@@ -1,12 +1,15 @@
-RUN_IN_DOCKER:=docker run --rm -it -v ~/.ssh:/root/.ssh -v $(CURDIR):/workspace -w /workspace highkay/ansible:2.8.9
+ANSIBLE_PLAYBOOK_RUN:= ansible-playbook -i inventory -e PYTHONWARNINGS="ignore" -v 
 
-.PHONY: init
-
-init:
-	${RUN_IN_DOCKER} -i inventory -v centos_install_workspace.yml
+.PHONY: init_workspace docker install_docker
 
 docker:
-	${RUN_IN_DOCKER} -i inventory -v centos_install_docker.yml
+	docker run --rm -it -v ~/.ssh:/root/.ssh -v $(CURDIR):/workspace -w /workspace --entrypoint=sh highkay/ansible
 
-k8s:
-	${RUN_IN_DOCKER} -i inventory -v centos_install_k8s.yml
+init_workspace: 
+	$(ANSIBLE_PLAYBOOK_RUN) centos_install_workspace.yml
+
+install_docker: 
+	$(ANSIBLE_PLAYBOOK_RUN) centos_install_docker.yml
+
+install_k8s: 
+	$(ANSIBLE_PLAYBOOK_RUN) centos_install_k8s.yml
