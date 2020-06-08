@@ -3,7 +3,7 @@ ANSIBLE_PLAYBOOK_RUN:= ansible-playbook -i inventory -e PYTHONWARNINGS="ignore" 
 .PHONY: init_workspace docker install_docker
 
 docker:
-	docker run --rm -it -v ~/.ssh:/root/.ssh -v $(CURDIR):/workspace -w /workspace --entrypoint=sh highkay/ansible
+	docker run --rm -it -v ~/.ssh:/root/.ssh -v $(CURDIR):/workspace -w /workspace -e ANSIBLE_HOST_KEY_CHECKING="False" --entrypoint=sh highkay/ansible
 
 init_workspace: 
 	$(ANSIBLE_PLAYBOOK_RUN) centos_install_workspace.yml
